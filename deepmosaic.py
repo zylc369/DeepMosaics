@@ -6,9 +6,8 @@ try:
     from util import util
     from models import loadmodel
 except Exception as e:
-    print(e)
-    input('Please press any key to exit.\n')
-    sys.exit(0)
+    print(f'deepmosaic load lib failed: {e}')
+    sys.exit(1)
 
 opt = Options().getparse(test_flag = True)
 if not os.path.isdir(opt.temp_dir):
@@ -94,6 +93,5 @@ if __name__ == '__main__':
         print(ex_val)
         for stack in traceback.extract_tb(ex_stack):
             print(stack)
-        input('Please press any key to exit.\n')
         #util.clean_tempfiles(tmp_init = False)
-        sys.exit(0)
+        sys.exit(1)
