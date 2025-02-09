@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import argparse
 import os
 import sys
@@ -16,7 +18,7 @@ class Options():
         self.parser.add_argument('--media_path', type=str, default='./imgs/ruoruo.jpg',help='your videos or images path')
         self.parser.add_argument('-ss', '--start_time', type=str, default='00:00:00',help='start position of video, default is the beginning of video')
         self.parser.add_argument('-t', '--last_time', type=str, default='00:00:00',help='duration of the video, default is the entire video')
-        self.parser.add_argument('--mode', type=str, default='auto',help='Program running mode. auto | add | clean | style')
+        self.parser.add_argument('--mode', type=str, help='Program running mode. add | clean | style')
         self.parser.add_argument('--model_path', type=str, default='./pretrained_models/mosaic/add_face.pth',help='pretrained model path')
         self.parser.add_argument('--result_dir', type=str, default='./result',help='output media will be saved here')
         self.parser.add_argument('--temp_dir', type=str, default='./tmp', help='Temporary files will go here')
@@ -80,17 +82,12 @@ class Options():
                 input('Please press any key to exit.\n')
                 sys.exit(0)
 
-            if self.opt.mode == 'auto':
-                if 'clean' in model_name or self.opt.traditional:
-                    self.opt.mode = 'clean'
-                elif 'add' in model_name:
-                    self.opt.mode = 'add'
-                elif 'style' in model_name or 'edges' in model_name:
-                    self.opt.mode = 'style'
-                else:
-                    print('Please check model_path!')
-                    input('Please press any key to exit.\n')
-                    sys.exit(0)
+            if self.opt.traditional:
+                self.opt.mode = 'clean'
+
+            if 'clean' != self.opt.mode and 'clean' != self.opt.mode and 'style' != self.opt.mode:
+                print(f'mode not supported {self.opt.mode}')
+                sys.exit(1)
 
             if self.opt.output_size == 0 and self.opt.mode == 'style':
                 self.opt.output_size = 512

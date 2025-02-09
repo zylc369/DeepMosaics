@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # 环境/库初始化脚本
 
-import sys,os,platform,subprocess,venv
+import sys, os, platform, subprocess, venv
 from pathlib import Path
 from packaging import version
 
@@ -25,6 +25,7 @@ except Exception as e:
 
 pipCmd = 'pip'
 
+
 # 检查虚拟环境是否已经创建，如果没有创建那么先创建
 def check_and_create_python_venv() -> str:
     venv_name = 'dm'
@@ -38,6 +39,8 @@ def check_and_create_python_venv() -> str:
         print(f"虚拟环境 {venv_name} 已存在。")
     return venv_dir
 
+
+# 安装Python依赖库
 def install_python_libs(venv_dir: str):
     # 确定pip可执行文件的路径
     pip_executable = os.path.join(venv_dir, ('Scripts' if os.name == 'nt' else 'bin'), pipCmd)
@@ -52,6 +55,8 @@ def install_python_libs(venv_dir: str):
     print("安装Python torch库(匹配CUDA 12.6计算架构)：")
     cmd_line_utils.run([pip_executable, "install", "-r", os.path.join(project_dir, "requirements_torch_cuda_12_6.txt")])
 
+
+# 安装ffmpeg
 def install_ffmpeg():
     min_version = "3.4.6"
 
@@ -80,7 +85,8 @@ def install_ffmpeg():
         exit(1)
 
 
-if __name__ == '__main__':
+# 初始化
+def init():
     # 获得虚拟环境
     venv_dir = check_and_create_python_venv()
     print("虚拟环境路径：", venv_dir)
@@ -91,3 +97,7 @@ if __name__ == '__main__':
 
     # 安装ffmpeg
     install_ffmpeg()
+
+
+if __name__ == '__main__':
+    init()
