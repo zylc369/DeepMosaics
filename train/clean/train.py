@@ -14,7 +14,7 @@ import time
 
 from util import util,data,dataloader
 from util import image_processing as impro
-from models import BVDNet,model_util
+from models import BVDNet,BVDNet_define,model_util
 from skimage.metrics import structural_similarity
 from tensorboardX import SummaryWriter
 
@@ -91,15 +91,15 @@ print('Please run "tensorboard --logdir checkpoints/tensorboardX --host=your_ser
 if opt.gpu_id != '-1' and len(opt.gpu_id) == 1:
     torch.backends.cudnn.benchmark = True
 
-netG = BVDNet.define_G(opt.N,opt.n_blocks,gpu_id=opt.gpu_id)
+netG = BVDNet_define.define_G(opt.N,opt.n_blocks,gpu_id=opt.gpu_id)
 optimizer_G = torch.optim.Adam(netG.parameters(), lr=opt.lr, betas=(opt.beta1, opt.beta2))
 lossfun_L2 = nn.MSELoss()
 lossfun_VGG = model_util.VGGLoss(opt.gpu_id)
 if not opt.no_gan:
-    netD = BVDNet.define_D(n_layers_D=opt.n_layers_D,num_D=opt.num_D,gpu_id=opt.gpu_id)
+    netD = BVDNet_define.define_D(n_layers_D=opt.n_layers_D,num_D=opt.num_D,gpu_id=opt.gpu_id)
     optimizer_D = torch.optim.Adam(netD.parameters(), lr=opt.lr, betas=(opt.beta1, opt.beta2))
-    lossfun_GAND = BVDNet.GANLoss('D')
-    lossfun_GANG = BVDNet.GANLoss('G')
+    lossfun_GAND = BVDNet_define.GANLoss('D')
+    lossfun_GANG = BVDNet_define.GANLoss('G')
 
 '''
 --------------------------Init DataLoader--------------------------

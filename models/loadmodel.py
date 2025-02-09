@@ -5,7 +5,7 @@ from .pix2pixHD_model import define_G as pix2pixHD_G
 # from .video_model import MosaicNet
 # from .videoHD_model import MosaicNet as MosaicNet_HD
 from .BiSeNet_model import BiSeNet
-from .BVDNet import define_G as video_G
+from .BVDNet_define import define_G as video_G
 
 def show_paramsnumber(net,netname='net'):
     parameters = sum(param.numel() for param in net.parameters())
