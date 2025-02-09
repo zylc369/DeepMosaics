@@ -10,6 +10,9 @@ from .init import video_init
 from multiprocessing import Queue, Process
 from threading import Thread
 
+# orig is 4
+DEFAULT_QUEUE_SIZE = 16
+
 '''
 ---------------------Clean Mosaic---------------------
 '''
@@ -33,7 +36,7 @@ def get_mosaic_positions(opt,netM,imagepaths,savemask=True):
         cv2.namedWindow('mosaic mask', cv2.WINDOW_NORMAL)
     print('Step:2/4 -- Find mosaic location')
 
-    img_read_pool = Queue(4)
+    img_read_pool = Queue(DEFAULT_QUEUE_SIZE)
     def loader(imagepaths):
         for imagepath in imagepaths:
             img_origin = impro.imread(os.path.join(opt.temp_dir+'/video2image',imagepath))
@@ -176,8 +179,8 @@ def cleanmosaic_video_fusion(opt,netG,netM):
     # clean mosaic
     print('Step:3/4 -- Clean Mosaic:')
     length = len(imagepaths)
-    write_pool = Queue(4)
-    show_pool = Queue(4)
+    write_pool = Queue(DEFAULT_QUEUE_SIZE)
+    show_pool = Queue(DEFAULT_QUEUE_SIZE)
     def write_result():
         while True:
             save_ori,imagepath,img_origin,img_fake,x,y,size = write_pool.get()
