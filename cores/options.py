@@ -65,6 +65,8 @@ class Options():
             import torch
             if not torch.cuda.is_available():
                 self.opt.gpu_id = '-1'
+                print('Error: torch cuda not available!')
+                sys.exit(1)
         # else:
         #     self.opt.gpu_id = '-1'
 
