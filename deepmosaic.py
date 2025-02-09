@@ -6,8 +6,9 @@ try:
     from util import util
     from models import loadmodel
 except Exception as e:
-    print(f'load lib failed: {e}')
-    sys.exit(1)
+    print(e)
+    input('Please press any key to exit.\n')
+    sys.exit(0)
 
 opt = Options().getparse(test_flag = True)
 if not os.path.isdir(opt.temp_dir):
@@ -46,7 +47,7 @@ def main():
             if util.is_img(file):
                 clean.cleanmosaic_img(opt,netG,netM)
             elif util.is_video(file):
-                if opt.netG == 'video' and not opt.traditional:
+                if opt.netG == 'video' and not opt.traditional:            
                     clean.cleanmosaic_video_fusion(opt,netG,netM)
                 else:
                     clean.cleanmosaic_video_byframe(opt,netG,netM)

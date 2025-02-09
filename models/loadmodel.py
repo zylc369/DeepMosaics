@@ -1,4 +1,3 @@
-from argparse import Namespace
 import torch
 from . import model_util
 from .pix2pix_model import define_G as pix2pix_G
@@ -7,7 +6,6 @@ from .pix2pixHD_model import define_G as pix2pixHD_G
 # from .videoHD_model import MosaicNet as MosaicNet_HD
 from .BiSeNet_model import BiSeNet
 from .BVDNet import define_G as video_G
-from BVDNet import BVDNet
 
 def show_paramsnumber(net,netname='net'):
     parameters = sum(param.numel() for param in net.parameters())
@@ -52,7 +50,7 @@ def style(opt):
     netG.eval()
     return netG
 
-def video(opt) -> BVDNet:
+def video(opt):
     netG = video_G(N=2,n_blocks=4,gpu_id=opt.gpu_id)
     show_paramsnumber(netG,'netG')
     netG.load_state_dict(torch.load(opt.model_path))
@@ -60,7 +58,7 @@ def video(opt) -> BVDNet:
     netG.eval()
     return netG
 
-def bisenet(opt: Namespace,type='roi') -> BiSeNet:
+def bisenet(opt,type='roi'):
     '''
     type: roi or mosaic
     '''

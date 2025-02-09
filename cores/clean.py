@@ -1,5 +1,4 @@
-import os,sys
-sys.path.append("..")
+import os
 import time
 import numpy as np
 import cv2
@@ -10,7 +9,6 @@ from util import image_processing as impro
 from .init import video_init
 from multiprocessing import Queue, Process
 from threading import Thread
-from models.BiSeNet_model import BiSeNet
 
 # orig is 4
 DEFAULT_QUEUE_SIZE = 16
@@ -18,7 +16,7 @@ DEFAULT_QUEUE_SIZE = 16
 '''
 ---------------------Clean Mosaic---------------------
 '''
-def get_mosaic_positions(opt,netM: BiSeNet,imagepaths,savemask=True):
+def get_mosaic_positions(opt,netM,imagepaths,savemask=True):
     # resume
     continue_flag = False
     if os.path.isfile(os.path.join(opt.temp_dir,'step.json')):
@@ -113,7 +111,7 @@ def cleanmosaic_img_server(opt,img_origin,netG,netM):
         img_result = impro.replace_mosaic(img_origin,img_fake,mask,x,y,size,opt.no_feather)
     return img_result
 
-def cleanmosaic_video_byframe(opt,netG, netM:BiSeNet):
+def cleanmosaic_video_byframe(opt,netG,netM):
     path = opt.media_path
     fps,imagepaths,height,width = video_init(opt,path)
     start_frame = int(imagepaths[0][7:13])

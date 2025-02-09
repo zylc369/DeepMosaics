@@ -85,7 +85,7 @@ https://pan.baidu.com/s/10rN3U3zd5TmfGpO_PEShqQ
 | :----------: | :------------------------: | :-------------------------------------: |
 |  --gpu_id   |   if -1, do not use gpu    |                    0                    |
 | --media_path | 需要处理的视频或者照片的路径 |            ./imgs/ruoruo.jpg            |
-|    --mode    |    运行模式(clean/add/style)    |                                   |
+|    --mode    |    运行模式(auto/clean/add/style)    |                 'auto'                  |
 | --model_path |   预训练模型的路径    | ./pretrained_models/mosaic/add_face.pth |
 | --result_dir | 保存路径 |                 ./result          |
 |    --fps    |    限制视频输出的fps，0则为默认    |                 0                  |

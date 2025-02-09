@@ -9,7 +9,6 @@ import torch.nn.functional as F
 import torch.nn.utils.spectral_norm as SpectralNorm
 from torchvision import models
 import torch.utils.model_zoo as model_zoo
-from BVDNet import BVDNet
 
 ################################## IO ##################################
 def save(net,path,gpu_id):
@@ -20,7 +19,7 @@ def save(net,path,gpu_id):
     if gpu_id != '-1':
         net.cuda()
 
-def todevice(net: BVDNet, gpu_id: str) -> BVDNet:
+def todevice(net,gpu_id):
     if gpu_id != '-1' and len(gpu_id) == 1:
         net.cuda()
     elif gpu_id != '-1' and len(gpu_id) > 1:

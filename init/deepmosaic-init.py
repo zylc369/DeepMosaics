@@ -19,8 +19,9 @@ sys.path.append(os.path.abspath(other_dir))
 try:
     import cmd_line_utils
 except Exception as e:
-    print(f'load lib failed: {e}')
-    sys.exit(1)
+    print(e)
+    input('Please press any key to exit.\n')
+    sys.exit(0)
 
 pipCmd = 'pip'
 
