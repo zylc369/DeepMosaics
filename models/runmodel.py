@@ -6,8 +6,9 @@ from util import mosaic
 from util import data
 import torch
 import numpy as np
+from .BiSeNet_model import BiSeNet
 
-def run_segment(img,net,size = 360,gpu_id = '-1'):
+def run_segment(img, net: BiSeNet,size = 360,gpu_id = '-1'):
     img = impro.resize(img,size)
     img = data.im2tensor(img,gpu_id = gpu_id, bgr2rgb = False, is0_1 = True)
     mask = net(img)
@@ -68,7 +69,7 @@ def get_ROI_position(img,net,opt,keepsize=True):
     x,y,halfsize,area = impro.boundingSquare(mask, 1)
     return mask,x,y,halfsize,area
 
-def get_mosaic_position(img_origin,net_mosaic_pos,opt):
+def get_mosaic_position(img_origin,net_mosaic_pos: BiSeNet,opt):
     h,w = img_origin.shape[:2]
     mask = run_segment(img_origin,net_mosaic_pos,size=360,gpu_id = opt.gpu_id)
     # mask_1 = mask.copy()

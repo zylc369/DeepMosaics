@@ -3,6 +3,7 @@
 import argparse
 import os
 import sys
+from argparse import Namespace
 
 
 class Options():
@@ -54,7 +55,7 @@ class Options():
         self.initialized = True
 
 
-    def getparse(self, test_flag = False):
+    def getparse(self, test_flag = False) -> Namespace:
         if not self.initialized:
             self.initialize()
         self.opt = self.parser.parse_args()
@@ -75,12 +76,10 @@ class Options():
         if test_flag:
             if not os.path.exists(self.opt.media_path):
                 print('Error: Media does not exist!')
-                input('Please press any key to exit.\n')
-                sys.exit(0)
+                sys.exit(1)
             if not os.path.exists(self.opt.model_path):
                 print('Error: Model does not exist!')
-                input('Please press any key to exit.\n')
-                sys.exit(0)
+                sys.exit(1)
 
             if self.opt.traditional:
                 self.opt.mode = 'clean'
@@ -106,8 +105,7 @@ class Options():
                     self.opt.netG = 'video'
                 else:
                     print('Type of Generator error!')
-                    input('Please press any key to exit.\n')
-                    sys.exit(0)
+                    sys.exit(1)
 
             if self.opt.ex_mult == 'auto':
                 if 'face' in model_name:
@@ -122,8 +120,7 @@ class Options():
                 if os.path.isfile(_path):
                     self.opt.mosaic_position_model_path = _path
                 else:
-                    input('Please check mosaic_position_model_path!')
-                    input('Please press any key to exit.\n')
-                    sys.exit(0)
+                    print('Please check mosaic_position_model_path!')
+                    sys.exit(1)
 
         return self.opt

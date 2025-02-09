@@ -3,9 +3,10 @@ import os
 import random
 import string
 import shutil
+from typing import List
 
 def Traversal(filedir):
-    file_list=[]
+    file_list:List=[]
     for root,dirs,files in os.walk(filedir): 
         for file in files:
             file_list.append(os.path.join(root,file)) 

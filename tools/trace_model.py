@@ -10,9 +10,8 @@ try:
     from util import util
     from models import loadmodel
 except Exception as e:
-    print(e)
-    input('Please press any key to exit.\n')
-    sys.exit(0)
+    print(f'load lib failed: {e}')
+    sys.exit(1)
 
 opt = Options().getparse(test_flag = False)
 if not os.path.isdir(opt.temp_dir):

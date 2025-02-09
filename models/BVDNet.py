@@ -92,7 +92,7 @@ class BVDNet(nn.Module):
         x = self.limiter(x)
         return x
 
-def define_G(N=2, n_blocks=1, gpu_id='-1'):
+def define_G(N=2, n_blocks=1, gpu_id='-1') -> BVDNet:
     netG = BVDNet(N = N, n_blocks=n_blocks)
     netG = model_util.todevice(netG,gpu_id)
     netG.apply(model_util.init_weights)
