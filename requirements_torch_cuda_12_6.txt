@@ -1,5 +1,7 @@
 # https://pytorch.org/
 
+# 参数--index-url：这是pip的一个选项，用于指定查找包的Python包索引的URL。通过设置这个选项，你可以告诉pip从哪里下载所需的.whl文件（Python的wheel包格式）。
+# 参数值https://download.pytorch.org/whl/cu126：这是一个特定的URL，指向包含为CUDA 12.6编译的PyTorch及相关库的whl文件的目录。这意味着你将下载并安装针对CUDA 12.6优化的版本，确保与支持CUDA 12.6的NVIDIA GPU更好的兼容性和性能。
 --index-url https://download.pytorch.org/whl/cu126
 
 torch
